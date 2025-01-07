@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
+
 
 void generate_password(int length);
 
@@ -30,7 +30,7 @@ int main ()
 void generate_password(int length)
 {
     /* We set the char array that includes all letters, digits & spec. symbols */
-    charset[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    const char charset[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                 "abcdefghijklmnopqrstuvwxyz"
                 "0123456789"
                 "!@#$%^&*()-_+";
@@ -56,5 +56,5 @@ void generate_password(int length)
     /* The next line create the NUL that appears at the endof every string */
     password[length] = '\0';
 
-    printf("Password:\n%s", password);
+    printf("Password:\n%s\n", password);
 }
