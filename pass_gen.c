@@ -5,6 +5,8 @@
 
 
 void generate_password(int length);
+// void copy_to_clipboard(const char *password);
+void write_to_file(const char *password);
 
 int main(int argc, char *argv[])
 {
@@ -53,7 +55,7 @@ int main(int argc, char *argv[])
     */
     if (password_length <= 0)
     {
-        printf("The password length should be greater than 0\n");
+        printf("The password length should be greater than 0.\n");
         return 1;
     }
 
@@ -93,4 +95,61 @@ void generate_password(int length)
     password[length] = '\0';
 
     printf("Password:\n%s\n", password);
+
+    /* Menu for copy_to_clipboard or write_to_file */
+    int option;
+    printf("Select an option:\n1. Copy to clipboard\n2. Write to file\n3. Exit\nOption:\n");
+    scanf("%d", &option);
+
+    /* The next while loop checks for option not being smaller than 0 or
+    *greater than 3 and scans again the option
+    */
+    while (option > 3 || option < 1)
+    {
+        printf("Invalid option\nInsert a new one\nOption:\n");
+        scanf("%d", &option);
+    }
+    switch (option)
+    {
+        case 1:
+            printf("To copy the password manually, select it and use Ctrl+Shift+C from console\n");
+            break;
+        case 2:
+            write_to_file(password);
+            break;
+        case 3:
+            printf("Goodbye!\n");
+            break;
+        default:
+            printf("Invalid option\n");
+            break;
+    }
+}
+
+/*
+void copy_to_clipboard(const char *password)
+{
+    FILE *clipboard = popen("wl-copy -sel clip", "w"); // Use pbcopy for Mac
+    if (clipboard == NULL)
+    {
+        printf("Error accessing clipboard\n");
+        return;
+    }
+    fprintf(clipboard, "%s", password);
+    pclose(clipboard);
+    printf("Password copied to clipboard\n");
+}
+*/
+
+void write_to_file(const char *password)
+{
+    FILE *file = fopen("password.txt", "w");
+    if (file == NULL)
+    {
+        printf("Error creating file\n");
+        return;
+    }
+    fprintf(file, "%s", password);
+    fclose(file);
+    printf("Password saved to 'password.txt'\n");
 }
