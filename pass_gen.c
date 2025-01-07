@@ -21,12 +21,12 @@ int main(int argc, char *argv[])
     char *p;
     int password_length;
 
-    errno = 0; // Not int errno, that is already include on errno.h
+    errno = 0; // Not int errno, that is already include with errno.h
 
     /* We set a long # with strtol using arvg[1], derefernce of *p and length 10 */
     long converter = strtol(argv[1], &p, 10);
 
-    /* We check for errors on ernno, if the string is not int or
+    /* We check for errors on ernno, if the string is not digits or
     *if it doens't have the right size of an integer
     */
     if (errno != 0 || *p != '\0' || converter > INT_MAX || converter < INT_MIN)
@@ -78,12 +78,12 @@ void generate_password(int length)
     */
     int charset_size = sizeof(charset) - 1;
 
-    char password[length + 1]; /* +1 to add '\0' at the end */
+    char password[length + 1]; /* +1 to add '\0' at the end and it becomes a string */
 
     /* We do a for loop with the length and we use arc4random_uniform,
-    *that function gives us a better quality random number from
+    *that function gives us a better quality random number than rand(), this from
     *the integer that we set before and adds it to index.
-    *Next we set the password[i] to the index that we got for charset
+    *Next we set the password[i] to the index value that we got for charset
     */
     for (int i = 0; i < length; i++)
     {
@@ -91,7 +91,7 @@ void generate_password(int length)
         password[i] = charset[index];
     }
 
-    /* The next line create the NUL that appears at the endof every string */
+    /* The next line creates the NUL that appears at the end of every string */
     password[length] = '\0';
 
     printf("Password:\n%s\n", password);
@@ -102,7 +102,7 @@ void generate_password(int length)
     scanf("%d", &option);
 
     /* The next while loop checks for option not being smaller than 0 or
-    *greater than 3 and scans again the option
+    *greater than 3 and scan it again
     */
     while (option > 3 || option < 1)
     {
@@ -112,6 +112,7 @@ void generate_password(int length)
     switch (option)
     {
         case 1:
+            // copy_to_clipboard(password);
             printf("To copy the password manually, select it and use Ctrl+Shift+C from console\n");
             break;
         case 2:
