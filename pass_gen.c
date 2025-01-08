@@ -5,7 +5,7 @@
 
 
 void generate_password(int length);
-// void copy_to_clipboard(const char *password);
+void copy_to_clipboard(const char *password);
 void write_to_file(const char *password);
 
 int main(int argc, char *argv[])
@@ -112,8 +112,8 @@ void generate_password(int length)
     switch (option)
     {
         case 1:
-            // copy_to_clipboard(password);
             printf("To copy the password manually, select it and use Ctrl+Shift+C from console\n");
+            copy_to_clipboard(password);
             break;
         case 2:
             write_to_file(password);
@@ -127,10 +127,10 @@ void generate_password(int length)
     }
 }
 
-/*
+
 void copy_to_clipboard(const char *password)
 {
-    FILE *clipboard = popen("wl-copy -sel clip", "w"); // Use pbcopy for Mac
+    FILE *clipboard = popen("xclip -sel clip", "w"); // Use pbcopy for Mac
     if (clipboard == NULL)
     {
         printf("Error accessing clipboard\n");
@@ -140,7 +140,7 @@ void copy_to_clipboard(const char *password)
     pclose(clipboard);
     printf("Password copied to clipboard\n");
 }
-*/
+
 
 void write_to_file(const char *password)
 {
